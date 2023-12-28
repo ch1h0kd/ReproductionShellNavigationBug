@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:test.ViewModels"
+             xmlns:models="clr-namespace:test.Models"
+             x:DataType="vm:ClientsViewModel"
+             x:Class="test.Pages.ClientsPage"
+             Title="ClientsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="plus.png"
+                 Clicked="AddClient_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid RowDefinitions="Auto">
+        <Grid Grid.Row="0"
+              RowDefinitions="*, Auto">
+            <CollectionView 
+                Grid.Row="0"
+                ItemsSource="{Binding Clients}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        ItemSpacing="10"
+                        Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Client">
+
+                        <Grid  RowDefinitions="2*, *"
+                           RowSpacing="20"
+                           Padding="5"
+                           BackgroundColor="LightGrey">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <!--two rows and two columns(edit, delete button)-->
+                            <Label Grid.Row="0"
+                               Grid.Column="0"
+                               BackgroundColor="LightGoldenrodYellow"
+                               Text="{Binding Name}"
+                               FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                               Grid.Column="0"
+                               BackgroundColor="AliceBlue"
+                                   Text="{Binding Id}"
+                                   FontSize="12"
+                                   FontAttributes="Bold"/>
+                            <Button Grid.Row="1"
+                                Grid.Column="1"
+                                Text="Delete"
+                                Padding="0"
+                                HeightRequest="25"
+                                FontSize="12"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientsViewModel}}, Path=DeleteClientCommand}"
+                                CommandParameter="{Binding Id}"/>
+                            <Button Grid.Row="0"
+                                Grid.Column="3"
+                                ImageSource="backarrow.png"
+                                Padding="0"
+                                MaximumHeightRequest="10"
+                                HeightRequest="10"
+                                FontSize="4"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientsViewModel}}, Path=DeleteClientCommand}"
+                                CommandParameter="{Binding Id}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <!--how to display each item-->
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center">
+                            <Label Text="No Clients Found"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

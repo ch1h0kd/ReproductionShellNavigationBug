@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="test.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:test.Pages"
+    Title="test">
+
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Home"
+            Shell.TabBarIsVisible="True"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage" />
+
+        <ShellContent
+            Title="Clients"
+            Shell.TabBarIsVisible="True"
+            ContentTemplate="{DataTemplate pages:ClientsPage}"
+            Route="ClientsPages" />
+
+        <ShellContent
+            Title="Products"
+            Shell.TabBarIsVisible="True"
+            ContentTemplate="{DataTemplate pages:ProductsPage}"
+            Route="ProductsPages" />
+    </TabBar>
+
+</Shell>
